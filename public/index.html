@@ -1,13 +1,162 @@
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
     <title>Sorteos Pelitos</title>
-</head>
-<body>
-    <h1>Bienvenido</h1>
-    <p>Prueba de CI/CD</p>
-</body>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="styles/login.css" />
+    <script src="scripts/login.js"></script>
+  </head>
+  <body>
+    <!-- Login -->
+    <div class="col-lg-4 col-md-7 col-sm-6 col-xs-12 login-card">
+      <form id="login-form" class="col-lg-12">
+        <div class="col-lg-12 logo-kapsul">
+          <img
+            width="100"
+            class="logo"
+            src="./images/logo.png"
+            alt="Logo"
+          />
+        </div>
+        <div style="clear: both"></div>
+        <div class="group">
+          <input type="text" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label
+            ><i class="material-icons input-ikon">person_outline</i
+            ><span class="span-input">Usuario</span></label
+          >
+        </div>
+        <div class="group">
+          <input type="password" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label
+            ><i class="material-icons input-sifre-ikon">lock</i
+            ><span class="span-input">Password</span></label
+          >
+        </div>
+        <a href="javascript:submitLogin(0);" class="giris-yap-buton">Iniciar Sesión</a>
+        <div class="forgot-and-create tab-menu">
+          <a
+            class="sifre-hatirlat-link"
+            href="javascript:void('sifre-hatirlat-link');"
+            >Olvidaste tu contraseña?</a
+          >
+          <a
+            class="hesap-olustur-link"
+            href="javascript:void('hesap-olustur-link');"
+            >Registrarse</a
+          >
+        </div>
+      </form>
+
+      <!-- Registro -->
+      <form id="kayit-form" class="col-lg-12">
+        <div class="col-lg-12 logo-kapsul">
+          <img
+            width="100"
+            class="logo"
+            src="./images/logo.png"
+            alt="Logo"
+          />
+        </div>
+
+        <div style="clear: both"></div>
+
+        <!-- Kayıt Form Kullanıcı Adı İnput -->
+        <div class="group">
+          <input type="text" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label
+            ><i class="material-icons input-ikon">person_outline</i
+            ><span class="span-input">Nombre de usuario</span></label
+          >
+        </div>
+        <div class="group">
+          <input type="text" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label
+            ><i class="material-icons input-ikon">mail_outline</i
+            ><span class="span-input">Correo</span></label
+          >
+        </div>
+        <div class="group">
+          <input type="password" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label
+            ><i class="material-icons input-sifre-ikon">lock</i
+            ><span class="span-input">Contraseña</span></label
+          >
+        </div>
+        <div class="group">
+          <input type="password" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label
+            ><i class="material-icons input-sifre-ikon">lock</i
+            ><span class="span-input">Confirmar Contraseña</span></label
+          >
+        </div>
+        <a href="javascript:void(0);" class="kayit-ol-buton">Registrarme</a>
+        <a
+          class="zaten-hesap-var-link"
+          href="javascript:void('zaten-hesap-var-link');"
+          >Ya tienes una cuenta? Inicia sesion.</a
+        >
+      </form>
+
+      <!-- Reestablecer contraseña -->
+      <form id="sifre-hatirlat-form" class="col-lg-12">
+        <div class="col-lg-12 logo-kapsul">
+          <img
+            width="100"
+            class="logo"
+            src="./images/logo.png"
+            alt="Logo"
+          />
+        </div>
+
+        <div style="clear: both"></div>
+        <div class="group">
+          <input type="text" required />
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label
+            ><i class="material-icons input-ikon">mail_outline</i
+            ><span class="span-input">E-Mail</span></label
+          >
+        </div>
+        <a href="javascript:void(0);" class="sifre-hatirlat-buton"
+          >Reestablecer Contraseña</a
+        >
+        <a
+          class="zaten-hesap-var-link"
+          href="javascript:void('zaten-hesap-var-link');"
+          >No recibiste el correo? Enviar de nuevo.</a
+        >
+      </form>
+    </div>
+  </body>
 </html>
