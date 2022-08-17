@@ -1,18 +1,17 @@
-const { response } = require('express');
 const bcryptjs = require('bcryptjs');
-const User = require('../models/user')
-const { Client } = require('pg');
+const IoTObject = require('../models/iotObject')
+//const { Client } = require('pg');
 
-const userGet = async (req, res) => {
-    const { limit = 5, desde = 0 } = req.query;
+const getAll = async (req, res) => {
+    const { limit = 5, offset = 0 } = req.query;
 
-    const filter = { status: true };
+    const filter = {};
 
     const [ total, users ] = await Promise.all([
-        User.countDocuments( filter ),
-        User.find( filter )
+        IoTObject.countDocuments(filter),
+        IoTObject.find(filter)
         .limit(limit)
-        .skip(desde)
+        .skip(offset)
     ])
 
     res.json({
@@ -21,24 +20,23 @@ const userGet = async (req, res) => {
     });
 };
 
-const userPost = async (req, res) => {
+const post = async (req, res) => {
     // Obtain new user values
-    const { name, login, password, role } = req.body;
-    const user = new User({name, login, password, role});
 
-    // Encrypt password
-    const salt = bcryptjs.genSaltSync();
-    user.password = bcryptjs.hashSync(password, salt);
+    console.log('req.body: ', req.body)
 
-    // Save User
-    await user.save();
+    const { nombre, activo } = req.body;
+    const iotObject = new IoTObject({nombre, activo});
+
+    // Save IoTObject
+    await iotObject.save();
 
     res.json({
-        msg: `User Created`,
-        user
+        msg: `IoTObject Created`,
+        iotObject
     });
 };
-
+/*
 const userPut = async(req, res) => {
     // Obtains user values
     const { id } = req.params;
@@ -74,11 +72,8 @@ const getAll = async (req, res) => {
     await client.end()
     res.json(result.rows || [])
 }
-
+*/
 module.exports = {
-    userGet,
-    userPost,
-    userPut,
-    userDelete,
-    getAll
+    getAll, 
+    post
 }

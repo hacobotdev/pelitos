@@ -7,11 +7,13 @@ const { roleIsValid, userLoginExists, userIdExist } = require('../helpers/db-val
 const { userGet, 
         userPost, 
         userPut, 
-        userDelete } = require('../controllers/user')
+        userDelete,
+        getAll } = require('../controllers/user')
 
 const router = Router();
 
 router.get('/', userGet);
+router.get('/all', getAll);
 
 router.post('/', [
         check('name', 'The name is required').not().isEmpty(),
