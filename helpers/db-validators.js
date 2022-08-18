@@ -1,29 +1,29 @@
-const Role = require('../models/role');
-const User = require('../models/user');
+const Rol = require('../models/rol');
+const Usuario= require('../models/usuario');
 
-const roleIsValid = async( role = '' ) => { 
-    const roleExists = await Role.findOne( { name: role } );
-    if( !roleExists ) {
-            throw new Error(`The role '${ role }' is not valid`);
+const rolEsValido = async( rol = '' ) => { 
+    const rolExiste = await Rol.findOne( { name: rol } );
+    if( !rolExiste ) {
+            throw new Error(`El rol '${ rol }' no es válido`);
     }
 }
 
-const userLoginExists = async( login = '' ) => { 
-    const loginExists = await User.findOne( { login } );
-    if(loginExists) {
-        throw new Error(`Email '${ login }' already registered`);
+const usuarioEmailExiste = async( email = '' ) => { 
+    const emailExists = await Usuario.findOne( { email } );
+    if(emailExists) {
+        throw new Error(`El Email '${ email }' ya se encuentra registrado`);
     }
 }
 
-const userIdExist = async( id = '' ) => { 
-    const idExists = await User.findById(id);
-    if(!idExists) {
-        throw new Error(`There is no user with ID '${ id }'`);
+const usuarioIdExiste = async( id = '' ) => { 
+    const idExiste = await Usuario.findById(id);
+    if(!idExiste) {
+        throw new Error(`No existe un usuario con ID '${ id }'`);
     }
 }
 
 module.exports = {
-    roleIsValid,
-    userLoginExists,
-    userIdExist
+    rolEsValido,
+    usuarioEmailExiste,
+    usuarioIdExiste
 }

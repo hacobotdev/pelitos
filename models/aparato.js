@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const IoTObjectSchema = Schema({
+const AparatoSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'El atributo "nombre" es obligatorio']
@@ -11,4 +11,4 @@ const IoTObjectSchema = Schema({
     }
 });
 
-module.exports = model('IoTObject',IoTObjectSchema);
+module.exports = model('Aparato', AparatoSchema);

@@ -7,9 +7,9 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         
-        this.usuariosPath = '/api/users'; 
+        this.usuariosPath = '/api/usuarios'; 
         this.authPath = '/api/auth';
-        this.iotPath = '/api/iot';
+        this.aparatoPath = '/api/aparato';
 
         // Connect to DB
         this.dbConnect();
@@ -38,8 +38,8 @@ class Server {
 
     routes() {
         this.app.use(this.authPath, require('../routes/auth'));
-        this.app.use(this.usuariosPath, require('../routes/user'));
-        this.app.use(this.iotPath, require('../routes/iotObject'));
+        this.app.use(this.usuariosPath, require('../routes/usuario'));
+        this.app.use(this.aparatoPath, require('../routes/aparato'));
     }
 
     listen() {

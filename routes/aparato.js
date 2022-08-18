@@ -1,6 +1,6 @@
 
 const { Router } = require('express');
-const { getAll, post } = require('../controllers/iotObject')
+const { getAll, post } = require('../controllers/aparato')
 const { validateHandler } = require('../middlewares/validations');
 
 const router = Router();
