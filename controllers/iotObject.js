@@ -1,22 +1,29 @@
 const bcryptjs = require('bcryptjs');
 const IoTObject = require('../models/iotObject')
 //const { Client } = require('pg');
+const moment = require('moment-timezone');
 
 const getAll = async (req, res) => {
-    const { limit = 5, offset = 0 } = req.query;
+    const { limit = 20, offset = 0 } = req.query;
 
     const filter = {};
 
-    const [ total, users ] = await Promise.all([
+    const [ total, objetos ] = await Promise.all([
         IoTObject.countDocuments(filter),
         IoTObject.find(filter)
         .limit(limit)
         .skip(offset)
     ])
 
+    let resObj = {};
+    for(let index = 0; index < objetos.length; index++) {
+        resObj[objetos[index].nombre] = objetos[index].activo ? "ON" : "OFF";
+    }
+
     res.json({
+        hora: moment().tz("America/Hermosillo").format('HH:mm'),
         total,
-        users
+        ...resObj
     });
 };
 
