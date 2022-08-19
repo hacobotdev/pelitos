@@ -8,7 +8,11 @@ const AparatoSchema = Schema({
     activo: {
         type: Boolean,
         required: [true, 'El atributo "activo" es obligatorio'],
-    }
+    },
+    desc: {
+        type: String,
+        default: '',
+    },
 });
 
 module.exports = model('Aparato', AparatoSchema);

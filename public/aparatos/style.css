@@ -55,3 +55,7 @@ body {
     transform: rotateY(3600deg);
   }
 }
+
+#conexionDesc {
+  padding-left: 20px;
+}

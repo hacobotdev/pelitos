@@ -4,7 +4,17 @@ const Aparato = require('../models/aparato')
 const moment = require('moment-timezone');
 
 const getAll = async (req, res) => {
-    const { limit = 20, offset = 0 } = req.query;
+    const { limit = 20, offset = 0, set_time = 0 } = req.query;
+
+    if(set_time == '1') {
+        await Aparato.findOneAndUpdate({nombre: 'last_checked_time'}, 
+            {
+                nombre: 'last_checked_time',
+                activo: true,
+                desc: moment().tz("America/Hermosillo").format('MMM DD HH:mm')
+            });
+    }
+    
     const filter = {};
     const [ total, objetos ] = await Promise.all([
         Aparato.countDocuments(filter),
@@ -14,18 +24,20 @@ const getAll = async (req, res) => {
     ])
     let resObj = {};
     for(let index = 0; index < objetos.length; index++) {
-        resObj[objetos[index].nombre] = objetos[index].activo ? "ON" : "OFF";
+        if(objetos[index].nombre != "last_checked_time")
+            resObj[objetos[index].nombre] = objetos[index].activo ? "ON" : "OFF";
+        else 
+            resObj[objetos[index].nombre] = objetos[index].desc;
     }
     res.json({
         hora: moment().tz("America/Hermosillo").format('HH:mm'),
-        total,
         ...resObj
     });
 };
 
 const post = async (req, res) => {
-    const { nombre, activo } = req.body;
-    const aparato = new Aparato({nombre, activo});
+    const { nombre, activo, desc } = req.body;
+    const aparato = new Aparato({nombre, activo, desc});
     await aparato.save();
     res.json({
         msg: `Aparato Creado`,
