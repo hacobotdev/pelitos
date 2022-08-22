@@ -1,6 +1,6 @@
 
 const { Router } = require('express');
-const { getAll, post, put, put_switch } = require('../controllers/aparato')
+const { getAll, post, put, put_switch, remove } = require('../controllers/aparato')
 const { validateHandler } = require('../middlewares/validations');
 
 const router = Router();
@@ -18,5 +18,9 @@ router.put('/', [
 router.put('/:nombre', [
     validateHandler
 ], put_switch);
+
+router.delete('/:nombre', [
+    validateHandler
+], remove);
 
 module.exports = router;

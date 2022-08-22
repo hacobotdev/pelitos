@@ -1,29 +1,47 @@
 const getCurrentValues = () => {
   showLoading(true);
   $.ajax({
-    url: `https://sorteos-pelitos.herokuapp.com/api/aparato/`,
+    url: `/api/aparato/`,
     type: 'GET',
     success: (result) => {
-      console.log(result);
-      Object.keys(result).forEach(key => {
-        setSwitchValue(key, result[key]);
+      divAparatos.innerHTML = "";
+      Object.keys(result.aparatos).forEach(key => {
+        generateControl(key, result.aparatos[key]);
       });
-      conexionDesc.innerHTML = 'Conexión: ' + result.last_checked_time;
+      divConexionDesc.innerHTML = 'Conexión: ' + result.conexion;
       showLoading(false);
     }
   });
 };
 
-const setSwitchValue = (id, value) => {
-  if(!['hora','last_checked_time'].includes(id)) {
-    let chkElem = document.getElementById(id);
-    if(chkElem)
-      chkElem.checked = (value == "ON");
-  };
+const generateControl = (id, value) => {
+  let input = document.createElement("input");
+  input.className = "form-check-input";
+  input.type = "checkbox";
+  input.id = id;
+  input.checked = value;
+  
+  let label = document.createElement("label");
+  label.className = "form-check-label aparato-label";
+  label.for = "flexSwitchCheckDefault";
+  label.innerHTML = id.charAt(0).toUpperCase() + id.slice(1);
+
+  let btnBorrar = document.createElement("span");
+  btnBorrar.className = "material-symbols-rounded delete-icon";
+  btnBorrar.setAttribute("onclick",`deleteAparato('${id}');`);
+  btnBorrar.innerHTML = "delete_forever";
+
+  let aparato = document.createElement("div");
+  aparato.className = "form-check form-switch hac-card";
+  aparato.appendChild(input);
+  aparato.appendChild(label);
+  aparato.appendChild(btnBorrar);
+
+  divAparatos.appendChild(aparato);
 };
 
 const showLoading = (show) => {
-  loadingModal.style.display = show ? "inline-block" : "none";
+  divLoadingModal.style.display = show ? "inline-block" : "none";
 }
 
 const handleSwitchChange = (event) => {
@@ -31,7 +49,7 @@ const handleSwitchChange = (event) => {
   if(id) {
     showLoading(true);
     $.ajax({
-      url: `https://sorteos-pelitos.herokuapp.com/api/aparato/${id}`,
+      url: `/api/aparato/${id}`,
       type: 'PUT',
       contentType: "application/json",
       success: (result) => {
@@ -42,12 +60,27 @@ const handleSwitchChange = (event) => {
   };
 }
 
-let loadingModal;
-let conexionDesc;
+const deleteAparato = (id) => {
+  showLoading(true);
+  $.ajax({
+    url: `/api/aparato/${id}`,
+    type: 'DELETE',
+    contentType: "application/json",
+    success: (result) => {
+        showLoading(true);
+        getCurrentValues();
+    }
+  });
+}
+
+let divLoadingModal;
+let divConexionDesc;
+let divAparatos;
 
 $(document).ready(function () {
-  loadingModal = document.getElementById('loadingModal');
-  conexionDesc = document.getElementById('conexionDesc');
+  divLoadingModal = document.getElementById('loadingModal');
+  divConexionDesc = document.getElementById('conexionDesc');
+  divAparatos = document.getElementById('aparatos');
   showLoading(true);
   getCurrentValues();
 });
