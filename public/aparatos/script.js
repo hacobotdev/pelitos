@@ -46,7 +46,7 @@ const showLoading = (show) => {
 
 const handleSwitchChange = (event) => {
   let id = event?.target?.id || '';
-  if(id) {
+  if(id && id != "aparato") {
     showLoading(true);
     $.ajax({
       url: `/api/aparato/${id}`,
@@ -73,14 +73,36 @@ const deleteAparato = (id) => {
   });
 }
 
+const createAparato = () => {
+  if(inputNewAparato.value) {
+    showLoading(true);
+    $.ajax({
+      url: `/api/aparato/`,
+      type: 'POST',
+      contentType: "application/json",
+      data: JSON.stringify({
+        nombre: inputNewAparato.value.trim().toLowerCase(),
+        activo: true
+      }),
+      success: (result) => {
+          showLoading(true);
+          inputNewAparato.value = "";
+          getCurrentValues();
+      }
+    });
+  }
+}
+
 let divLoadingModal;
 let divConexionDesc;
 let divAparatos;
+let inputNewAparato;
 
 $(document).ready(function () {
   divLoadingModal = document.getElementById('loadingModal');
   divConexionDesc = document.getElementById('conexionDesc');
   divAparatos = document.getElementById('aparatos');
+  inputNewAparato = document.getElementById('aparato');
   showLoading(true);
   getCurrentValues();
 });

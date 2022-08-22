@@ -19,8 +19,18 @@ body {
   width: 100%;
 }
 
+.nuevo {
+  padding-left: 20px;
+}
+
 #conexionDesc {
   padding-left: 20px;
+}
+
+.nuevo-aparato-input {
+  width: calc(100% - 95px);
+  margin-top: -3px;
+  margin-right: 10px;
 }
 
 .aparato-label {
